@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using PjatkArchExample.Domain.Interfaces.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,14 +7,16 @@ using System.Threading.Tasks;
 
 namespace PjatkArchExample.Persistance.Repositories
 {
-    //Przykład implementacji wzorca Repository. Jest to bazowe repozytorium.
-    //Możemy po nim dziedziczyć i tworzyć bardziej wyspecjalizowane repozytoria.
-    public class BaseRepository<T> : IDisposable
-                                     where T : class, IDisposable
+    //This is example of the generic repository pattern.
+    //This class can be extended or modified.
+    //It should contain only methods that can be useful for us in all the repositories.
+    public class BaseRepository<T> : IRepository<T>,
+                                     IDisposable
+                                     where T : class
     {
-        private readonly DbContext _dbContext;
+        private readonly PjatkDbContext _dbContext;
 
-        public BaseRepository(DbContext dbContext)
+        public BaseRepository(PjatkDbContext dbContext)
         {
             _dbContext = dbContext;
         }

@@ -1,14 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using PjatkArchExample.Domain.Entities;
+using PjatkArchExample.Domain.Interfaces.Repositories;
+using PjatkArchExample.Domain.Interfaces.Services;
+using PjatkArchExample.Domain.Services;
+using PjatkArchExample.Persistance;
+using PjatkArchExample.Persistance.Repositories;
 
 namespace PjatkArchExample.UI
 {
@@ -31,6 +32,9 @@ namespace PjatkArchExample.UI
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            services.AddDbContext<PjatkDbContext>();
+            services.AddScoped<IStudentService, StudentService>();
+            services.AddScoped<IRepository<Student>, BaseRepository<Student>>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }

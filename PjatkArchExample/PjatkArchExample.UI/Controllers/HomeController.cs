@@ -1,18 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using PjatkArchExample.Domain.Interfaces.Services;
 using PjatkArchExample.UI.Models;
+using System.Diagnostics;
+using System.Threading.Tasks;
 
 namespace PjatkArchExample.UI.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        private readonly IStudentService _service;
+
+        public HomeController(IStudentService service)
         {
-            return View();
+            _service = service;
+        }
+
+        public async Task<IActionResult> Index()
+        {
+            return View(await _service.GetStudentsAsync());
         }
 
         public IActionResult Privacy()
