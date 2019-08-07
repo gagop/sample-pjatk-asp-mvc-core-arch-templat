@@ -47,7 +47,7 @@ namespace PjatkArchExample.Persistance.Repositories
             _dbContext.Entry(elementToRemove).State = EntityState.Deleted;
         }
 
-        public async void Save()
+        public async Task Save()
         {
             await _dbContext.SaveChangesAsync();
         }

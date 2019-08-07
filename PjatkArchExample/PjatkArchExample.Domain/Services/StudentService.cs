@@ -18,6 +18,7 @@ namespace PjatkArchExample.Domain.Services
         public async Task AddStudentAsync(Student newStudent)
         {
             await _repository.Add(newStudent);
+            await _repository.Save();
         }
 
         public async Task<IEnumerable<Student>> GetStudentsAsync()

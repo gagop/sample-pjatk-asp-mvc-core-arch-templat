@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using PjatkArchExample.Domain.Entities;
 using PjatkArchExample.Domain.Interfaces.Services;
 using PjatkArchExample.UI.Models;
 using System.Diagnostics;
@@ -12,7 +13,17 @@ namespace PjatkArchExample.UI.Controllers
 
         public HomeController(IStudentService service)
         {
+
             _service = service;
+
+            //TODO simple seed
+            _service.AddStudentAsync(new Student
+            {
+                IdStudent = 1,
+                FirstName = "John",
+                LastName = "Smith"
+            });
+            
         }
 
         public async Task<IActionResult> Index()
